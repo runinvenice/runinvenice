@@ -592,3 +592,15 @@ hr {
   overflow: auto;
 }
 
+
+
+/*privacyPolicy*/
+.privacy-policy {
+  text-align: center;
+}
+.privacy-policy {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+}
+
