@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net 'unsafe-inline';">
+    <title>Run In Venice</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaqueries.css" />
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+    <!--jquerry cdn link-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+
+    </script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  (function () {
+    emailjs.init("kgC_dwGunN4Lt4Ly4");
+  })();
+</script>
+  </head>
+  <body>
+
+     <!--tour booking form-->
+     <div class="section hideform" id="booking">
+      <div class="section-center">
+        <div class="booking-form">
+          <div class="form-header">
+            <h1>Make Your Reservation</h1>
+          </div>
+          <!--form-->
+            <div class="elem-group">
+              <label for="name">Name</label>
+              <input type="text" name="visitor_name" id="fullName" placeholder="Marco Rossi" required> 
+            </div>
+
+            <div class="elem-group">
+              <label for="email">E-mail</label>
+              <input type="email" name="visitor_email" id="email_id" placeholder="marcorossi@gmail.com" required> 
+            </div>
+
+            <div class="elem-group">
+              <label for="phone">Phone</label>
+              <input type="tel" name="visitor_phone" id="phone" placeholder="+393896678940" required> 
+            </div>
+            <hr>
+
+            <div class="elem-group inlined">
+              <label for ="adult">Guests</label>
+              <input type="number" name="total-adults" id="adult" placeholder="2" min="1" max="6" required>
+            </div>
+
+
+
+            <div class="elem-group inlined">
+              <label for ="checkin-date">Date</label>
+              <input type="date" name="checkin" id="check_in_date" required>
+            </div>
+
+            <hr>
+            
+
+            <div class="box">
+              <label for="message">Note:</label>
+              <textarea id="message" name="message" rows="3" placeholder="Enter your note here"></textarea>
+            </div>         
+            <hr>
+            <div class="search">
+              <input type="submit" value="BOOK NOW" onclick="sendMailAndRedirect();">
+            </div>
+          <!--form-->
+          <button class="close" onclick="closeForm()">X</button>
+        </div>
+
+      </div>
+  
+    <script>
+      function sendMailAndRedirect() {
+      if (validateForm()) {
+        SendMail(redirectToProfilePage);
+      }
+    }
+    
+    function validateForm() {
+    var fullName = document.getElementById("fullName").value.trim();
+    var email = document.getElementById("email_id").value.trim();
+    var checkInDate = document.getElementById("check_in_date").value.trim();
+    var adults = document.getElementById("adult").value.trim();
+    var phone = document.getElementById("phone").value.trim();
+
+    var message = document.getElementById("message").value.trim();
+
+    
+        // Basic validation for each field
+        if (fullName === "") {
+          alert("Full Name must not be empty");
+          return false;
+        }
+    
+        // You can add more specific email validation using regex
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          alert("Invalid email address");
+          return false;
+        }
+    
+        if (checkInDate === "") {
+          alert("Check-in Date must not be empty");
+          return false;
+        }
+        if (adult === "") {
+          alert("Adults must not be empty");
+          return false;
+        }
+
+        if (phone === "") {
+          alert("Phone must not be empty");
+          return false;
+        }
+    
+    
+        // If all validations pass
+        return true;
+      }
+    
+      function SendMail(callback) {
+        var params = {
+          from_name: document.getElementById("fullName").value,
+          email_id: document.getElementById("email_id").value,
+          date: document.getElementById("check_in_date").value,
+          adults: document.getElementById("adult").value,
+          phone: document.getElementById("phone").value,
+          message: document.getElementById("message").value,
+    
+
+        };
+    
+        emailjs.send("service_zpdd4fh", "template_1ntz03n", params).then(function (res) {
+          alert("Thank you for booking the experience! Payment can be made in cash on the morning of the tour or via PayPal. If you require any assistance, please do not hesitate to contact us.");
+          if (callback && typeof callback === "function") {
+            callback();
+          }
+        });
+      }
+    </script>
+  
+    <script>
+      function redirectToProfilePage() {
+        closeForm();
+        show();
+
+       
+        // Redirect to the PayPal-integrated page
+        window.location.href = '#profile';
+      }
+    </script>
+    
+ 
+    </div>
+    <nav id="desktop-nav">
+      <div class="logo">@runinvenice</div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Host</a></li>
+          <li><a href="#projects">Pictures</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+      <div class="logo">@runinvenice</div>
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu-links">
+          <li><a href="#about" onclick="toggleMenu()">About</a></li>
+          <li><a href="#experience" onclick="toggleMenu()">Host</a></li>
+          <li><a href="#projects" onclick="toggleMenu()">Pictures</a></li>
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </div>
+      </div>
+    </nav>
+    <section id="profile">
+          
+      <div class="section__pic-container">
+        <img src="./assets/meabout.webp" alt="Denis Bukowski profile picture" />
+      </div>
+      <div class="section__text">
+        <p class="section__text__p1">Venice Sunrise Running Experience</p>
+        <h1 class="title">run in Venice</h1>
+        <p class="section__text__p2">With a local guide</p>
+
+        
+        <div class="btn-container">
+          <button
+          class="btn btn-color-2 room-card-btn"
+          onclick= "openForm()">Book Now Price: 30€</button>
+
+          <button class="btn btn-color-1" onclick="location.href='./#contact'">
+            Contact Info
+          </button>
+        </div>
+
+        <div id="socials-container">
+          <img
+            src="./assets/youtube.png"
+            alt="My youtube channel"
+            class="icon"
+            onclick="location.href='https://www.youtube.com/shorts/bceRTZ_x8hI'"
+            target="_blank" rel="noopener"
+          />
+          <img
+            src="./assets/instagram.png"
+            alt="My Instagram profile"
+            class="icon"
+            onclick="location.href='https://www.instagram.com/runinvenice/'" target="_blank" rel="noopener"
+          />
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <p class="section__text__p1">Join the tour to explore Venice's main   attractions and promenades.</p>
+      <h1 class="title">more about the experience</h1>
+      <div class="section-container">
+        <div class="section__pic-container">
+          <img
+            src="./assets/runabout.webp"
+            alt="Profile picture"
+            class="about-pic"
+          />
+        </div>
+        <div class="about-details-container">
+          <div class="about-containers">
+            <div class="details-container">
+              <img
+                src="./assets/duration.png"
+                alt="Experience icon"
+                class="icon"
+              />
+              <h3>Duration: 1hr</h3>
+              <h3>Everyday 7-8am</h3>
+              <h3>Starts from Rialto Bridge</h3>
+              <p>Breakfast<br />Included</p>
+            </div>
+            <div class="details-container">
+              <img
+                src="./assets/run.png"
+                alt="Education icon"
+                class="icon"
+              />
+              <h3>Tour Difficulty</h3>
+              <p>Easy – Moderate<br />2-6 miles (you decide)</p>
+            </div>
+          </div>
+          <div class="text-container">
+            <p>
+              During the experience, we will visit Venice's main attractions and promenades. You will have the opportunity to take in the views of the tranquil morning city, soak in the rhythm of the city, and perhaps feel like a Venetian out for a morning run. We will also take numerous photos to capture the beauty of Venice for you to cherish.
+            </p>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#experience'"
+      />
+    </section>
+    <section id="experience">
+      <p class="section__text__p1">Meet your</p>
+      <h1 class="title">host</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container">
+            <h2 class="experience-sub-title">Denis Bukowski</h2>
+            <div class="article-container">
+                <div>
+                  <h3>Nice to meet you!</h3>
+                  <p>My name is Denis. I have been a resident of Venice for over 14 years, and as an avid runner, I am thrilled to offer you an unforgettable experience of a serene morning city center, along with showcasing the main water-based attractions of the city. An added bonus for you is the opportunity to start your day with a refreshing workout and good vibes, which will surely accompany you throughout the rest of the day.</p>
+                </div>
+            </div>
+          </div>
+     
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#projects'"
+      />
+    </section>
+
+
+    <section id="projects">
+      <p class="section__text__p1">How does it work?</p>
+      <h1 class="title">explained through pictures</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/gallery-one.WebP"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">put on your shoes</h2>
+           
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/gallery-four.WebP"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">run through the morning city</h2>
+            
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/croissant.png"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">treat yourself to a crispy delight</h2>
+            <div class="btn-container">
+
+              <button
+                class="btn btn-color-2"
+                onclick="window.open('./assets/tourflyer.pdf')"
+              >
+                download flyer recap
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#contact'"
+      />
+    </section>
+    <section id="contact">
+      <p class="section__text__p1">Get in touch</p>
+      <h1 class="title">contact me</h1>
+      <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+          <img
+            src="./assets/email.png"
+            alt="Email icon"
+            class="icon contact-icon email-icon"
+          />
+          <p><a href="mailto:runninginvenice@gmail.com">runninginvenice@gmail.com</a></p>
+        </div>
+        <div class="contact-info-container">
+          <img
+            src="./assets/instagramdark.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://www.instagram.com/runinvenice/" target="_blank" rel="noopener">Instagram</a></p>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <nav>
+        <div class="nav-links-container">
+          <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Host</a></li>
+            <li><a href="#projects">Pictures</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="version-info">
+        <p>P.IVA 04687150278 | runinvenice | Icons by <a href="https://icons8.com/" target="_blank" rel="noopener">Icons8</a> <a href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener"> | CC</a> </p>
+      </div>
+    </footer>
+            
+    <script src="script.js"></script>
+  </body>
+</html>
