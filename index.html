@@ -71,6 +71,11 @@
               <input type="date" name="checkin" id="check_in_date" required>
             </div>
 
+            <div class="box">
+              <input type="checkbox" id="privacyPolicy" name="privacyPolicy" required>
+  <label for="privacyPolicy">By ticking this box, you are confirming that you have read and agree to our <a href="https://www.iubenda.com/privacy-policy/83120760" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">Privacy Policy</a>.</label><br>
+            </div>
+
             <hr>
             
 
@@ -101,6 +106,7 @@
     var checkInDate = document.getElementById("check_in_date").value.trim();
     var adults = document.getElementById("adult").value.trim();
     var phone = document.getElementById("phone").value.trim();
+    var privacyPolicyCheckbox = document.getElementById("privacyPolicy").value.trim();
 
     var message = document.getElementById("message").value.trim();
 
@@ -117,6 +123,10 @@
           alert("Invalid email address");
           return false;
         }
+        if (!privacyPolicyCheckbox.checked) {
+  alert("Please confirm that you have read and agree to the Privacy Policy.");
+  return false;
+}
     
         if (checkInDate === "") {
           alert("Check-in Date must not be empty");
@@ -131,6 +141,7 @@
           alert("Phone must not be empty");
           return false;
         }
+       
     
     
         // If all validations pass
@@ -403,6 +414,8 @@
       </div>
       <div class="privacy-policy">
         <a href="https://www.iubenda.com/privacy-policy/83120760" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy ">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+        <br>
+        <hr>
 
         <a href="https://www.iubenda.com/privacy-policy/83120760/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Cookie Policy ">Cookie Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
       </div>
